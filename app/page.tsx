@@ -1,7 +1,17 @@
 "use client"
 
-import App from "../client/src/App"
+import { Suspense } from 'react'
+import dynamic from 'next/dynamic'
 
-export default function SyntheticV0PageForDeployment() {
-  return <App />
+// Dynamically import the LandingPage component
+const LandingPage = dynamic(() => import('@/components/LandingPage'), {
+  loading: () => <div>Loading...</div>,
+})
+
+export default function Home() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LandingPage />
+    </Suspense>
+  )
 }
